@@ -1,36 +1,10 @@
 function calculateDayInYear(date) {
-  const splitDate = date.split('/');
-  const year = Number(splitDate[0]);
-  const month = Number(splitDate[1]);
-  const day = Number(splitDate[2]);
-
-  const validMonth = function(month) {
-    return month && month >= 1 && month < 12;
-  }
-
-  const validDay = function(month, day) {
-    return day && day >= 1 && day < DAYS_IN_MONTH[month - 1];
-  }
-
-  const calculateDayNumber = function(month, day) {
-    let dayOfYear = 1;
-
-    for (let i = 1; i < month; i++) {
-      dayOfYear += DAYS_IN_MONTH[i - 1];
-    }
-
-    return dayOfYear;
-  }
-
-  const daysInFeb = function(year) {
-    return 28;
-  }
-
-  const isLeapYear = function(year) {
-    return isMultiple(year, 400) || !isMultiple(year, 100) && isMultiple(year, 4);
-  }
-
-  const DAYS_IN_MONTH = [31, daysInFeb(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  var splitDate = date.split('/');
+  var year = Number(splitDate[0]);
+  var month = Number(splitDate[1]);
+  var day = Number(splitDate[2]);
+  var febDays = daysInFeb(year);
+  var DAYS_IN_MONTH = [31, febDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
   if (year && validMonth(month) && validDay(month, day)) {
     console.log(date, "is day", calculateDayNumber(month, day), "of the year", year);
@@ -38,10 +12,50 @@ function calculateDayInYear(date) {
   } else {
     console.log("Invalid date");
   }
+
+  function validMonth(month) {
+    //console.log('this should be true', month >= 1 && month < 12)
+    return month && month >= 1 && month <= 12;
+  }
+
+  function validDay(month, day) {
+    // console.log('valid day', day >= 1 && day < DAYS_IN_MONTH[month]);
+    return day && day >= 1 && day <= DAYS_IN_MONTH[month-1];
+  }
+
+  function calculateDayNumber(month, day) {
+    var dayOfYear = day;
+
+    for (var i = 1; i < month; i++) {
+      dayOfYear += DAYS_IN_MONTH[i - 1];
+    }
+
+    return dayOfYear;
+  }
+
+  function daysInFeb(year) {
+    if (isLeapYear(year)) {
+      return 29
+    } else {
+      return 28;
+    }
+  }
+
+  function isLeapYear(year) {
+    return isMultiple(year, 400) || !isMultiple(year, 100) && isMultiple(year, 4);
+  }
 }
 
-const isMultiple = function(numerator, denominator) {
+function isMultiple(numerator, denominator) {
   return numerator % denominator === 0;
+}
+
+var date = process.argv[2];
+
+if (!date) {
+  console.log("Please provide a date in the format YYYY/MM/DD");
+} else {
+  calculateDayInYear(date);
 }
 
 /*
