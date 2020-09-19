@@ -20,7 +20,26 @@ const library = {
                       name: "Other Playlist",
                       tracks: ["t03"]
                     }
-             }
+             },
+        printPlaylists : function() {
+              for (item in this.playlists) {
+                     id = this.playlists[item].id;
+                     name = this.playlists[item].name;
+                     tracks = this.playlists[item].tracks.length;
+                     console.log(id + ": by " + name + " - " + tracks + " tracks.")
+                   }  
+       },
+
+        printTracks :    function() {
+              for (item in this.tracks) {
+                     trackNum = this.tracks[item].id;
+                     name = this.tracks[item].name;
+                     artist = this.tracks[item].artist;
+                     album = this.tracks[item].album;
+                     console.log(trackNum + ": " + name + " by " + artist + " (" + album + ")")
+                   }
+                 
+       }
 };
 
 /////////////////////////////
@@ -30,31 +49,14 @@ const library = {
 // prints a list of all playlists, in the form:
 // p01: Coding Music - 2 tracks
 // p02: Other Playlist - 1 tracks
-const printPlaylists = function() {
-       for (item in this.playlists) {
-              id = this.playlists[item].id;
-              name = this.playlists[item].name;
-              tracks = this.playlists[item].tracks.length;
-              console.log(id + ": by " + name + " - " + tracks + " tracks.")
-            }  
-}
+
 
 
 // prints a list of all tracks, using the following format:
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 // t03: Four Thirty-Three by John Cage (Woodstock 1952)
-const printTracks = function() {
-       for (item in this.tracks) {
-              trackNum = this.tracks[item].id;
-              name = this.tracks[item].name;
-              artist = this.tracks[item].artist;
-              album = this.tracks[item].album;
-              console.log(trackNum + ": " + name + " by " + artist + " (" + album + ")")
-            }
-          
 
-}
 
 
 // prints a list of tracks for a given playlist, using the following format:
@@ -62,7 +64,7 @@ const printTracks = function() {
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 const printPlaylist = function(playlistId) {
-       
+
        var playListId = this.playlists[playlistId];
        var playListName = this.playlists[playlistId].name;
        var playListLength = this.playlists[playlistId].tracks.length;
@@ -133,7 +135,7 @@ const printSearchResults = function(query) {
 }
 
 
-printPlaylists();
+library.printPlaylist(); 
 console.log ("SONYA CHECKING !!!!!!!")
 
 
